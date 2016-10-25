@@ -1,0 +1,582 @@
+\NeedsTeXFormat{LaTeX2e}[1995/12/01]
+\ProvidesPackage{mats-textbook}
+
+\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\definecolor{exampleBg}{RGB}{255,128,0}
+\definecolor{definitionBg}{RGB}{0,128,255}
+\definecolor{sectionColor}{RGB}{0,128,255}
+\definecolor{tableBg}{RGB}{64,192,0}
+
+
+
+\setlength{\marginparwidth}{1.67\marginparwidth}
+
+\RequirePackage[
+  nouppercase,
+  %headsepline
+]{scrlayer-scrpage} %{scrpage2}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\automark[section]{chapter}
+\lehead{\color{sectionColor}\small\leftmark}
+\rohead{\color{sectionColor}\small\rightmark}
+\lefoot{\pagemark}
+\rofoot{\pagemark}
+\setheadwidth{textwithmarginpar}
+\setfootwidth{textwithmarginpar}
+%\setkomafont{pageheadfoot}{\small\bfseries\sffamily}
+\setkomafont{partnumber}{\huge\bfseries\color{Maroon}}
+\setkomafont{part}{\Huge\bfseries\color{Maroon}}
+
+\setkomafont{chapter}{\color{sectionColor}\huge}
+\setkomafont{section}{\color{sectionColor}\Large}
+\setkomafont{subsection}{\color{sectionColor}\large}
+
+
+
+
+%\renewcommand*{\partformat}{
+%  \tikz\node[rectangle,fill=blue,white]{\partname~\thepart\autodot};
+%}
+
+
+
+\RequirePackage{fix-cm}
+
+
+
+
+% autodot
+\renewcommand*{\figureformat}{%
+  \figurename~\thefigure%
+%  \autodot% DELETED
+}
+
+
+\RequirePackage{translations}
+
+\newcommand*\examplestring{\protect\GetTranslation{mats-textbook-example}}
+
+% translations for `mypackage-title':
+\DeclareTranslationFallback {mats-textbook-example}{Example}
+\DeclareTranslation{English}{mats-textbook-example}{Example}
+\DeclareTranslation{Swedish}{mats-textbook-example}{Exempel}
+
+
+
+
+
+
+
+
+
+\RequirePackage{microtype}
+\RequirePackage{fontspec}
+\RequirePackage{mathrsfs}
+
+\setmainfont[
+  Numbers={OldStyle, Proportional},
+  Ligatures={NoRequired,NoCommon,NoContextual}
+  %Ligatures=TeX
+]{Palatino} %{Minion Pro} %{Adobe Garamond Pro}
+\setsansfont[Colour=black]{Myriad Pro}
+\setmonofont[Scale=MatchLowercase]{Ubuntu Mono}
+\setmathrm{Latin Modern Math}
+
+
+\RequirePackage{graphicx}
+\RequirePackage{hyperref}
+\RequirePackage{tabularx}
+
+\RequirePackage{enumitem}
+\renewcommand{\theenumi}{\alph{enumi}}
+\renewcommand\labelenumi{(\theenumi)}
+
+
+
+\RequirePackage[
+  small,
+  format=hang,
+  labelfont={bf},
+  textfont={small}
+]{caption}
+\DeclareCaptionStyle{sidecaption}{
+  labelfont={
+    sc,
+    bf
+  },
+  font={footnotesize},
+  justification=raggedright
+}
+
+
+
+\RequirePackage{subcaption}
+\RequirePackage{mcaption}
+\RequirePackage{float}
+\RequirePackage{ragged2e}
+\captionsetup{format=plain}
+\captionsetup{font=small}
+\captionsetup[figure]{
+  name=Figure,
+  indention=0pt,
+  justification=RaggedRight
+}
+
+
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{amsthm}
+\RequirePackage{mathtools}
+\RequirePackage{thmtools}
+\RequirePackage{interval}
+\RequirePackage{xfrac} % \sfrac{1}{2}
+
+\numberwithin{equation}{chapter}
+
+\RequirePackage{chngcntr}
+\counterwithin{figure}{chapter}
+\counterwithin{table}{chapter}
+
+
+
+
+%% Check if it is necceary to require both
+\RequirePackage{marginnote}
+\renewcommand*{\marginfont}{\footnotesize}
+
+\RequirePackage{sidenotes}
+\renewcommand*{\footnote}[1]{\sidenote{\footnotesize#1}}
+
+\RequirePackage[error,global]{sepfootnotes}
+
+
+
+\RequirePackage[
+  hyperref=true,
+  %url=false,
+  isbn=false,
+  %date=year,
+  ibidtracker=strict,
+  backref=true,
+  citereset=chapter,
+  maxcitenames=3,
+  maxbibnames=100,
+  citestyle=authortitle-icomp,
+  bibstyle=authoryear,
+  autocite=footnote,
+  backend=biber,
+  block=none]{biblatex}
+\renewcommand\nameyeardelim{, }
+
+\let\mfs\multiplefootnoteseparator
+
+\RequirePackage{verbatimbox}
+
+
+
+
+
+
+\RequirePackage{pgfplots}
+\pgfplotsset{
+  compat  = 1.13,
+  samples = 100,
+}
+\pgfplotsset{
+  full/.style={%
+    axis lines=middle,
+    width=.67\textwidth,
+    height=5cm,
+    axis lines = middle,
+    domain = 0:10,
+    xmin=-1,
+    xmax=10,
+    ymin=-1,
+    ymax=10,
+    xtick=\empty,
+    ytick=\empty,
+    yticklabels={$E_{e^-}$},
+    clip = false
+  },
+  half/.style={%
+    full,
+    width=.40\textwidth,
+  }
+}
+
+\RequirePackage{tikz}
+\usetikzlibrary{
+  decorations.pathmorphing,
+  positioning,calc,
+  arrows,shapes,
+  snakes,
+  automata,
+  backgrounds,
+  petri,
+  fit,
+  arrows.meta,
+  hobby
+}
+
+%\tikzset{every node/.append style={font append=\footnotesize}}
+
+\tikzset{
+  >=stealth,
+  font={
+    \footnotesize
+  },
+  electron/.style={
+    draw=black,
+    circle,
+    minimum width=3mm,
+    text width=1mm,
+  },
+  myarrow/.style={
+    ->,
+    %shorten >=0.5cm,
+    %shorten <=1cm,
+    thick,
+    >=latex,
+  },
+  radiation/.style={
+    myarrow,
+    draw=red,
+    fill=red,
+    line join=round,
+    decorate, decoration={
+      zigzag,
+      segment length=4,
+      amplitude=.9,post=lineto,
+      post length=2pt,
+    }
+}}
+\newcommand*{\bondboldwidth}{0.22832 em} %'Bold Width'
+\newcommand*{\bondhashlength}{0.25737 em} % 'Hash Spacing'
+\tikzset{
+  bold bond/.style = {line width = \bondboldwidth},
+  dash bond/.style =
+    {dash pattern = on \bondhashlength off \bondhashlength},
+  hash bond/.style =
+    {
+      dash pattern = on \bondwidth off \bondhashlength,
+      line width   = \bondboldwidth
+    },
+}
+\tikzset{
+  wavy bond/.style =
+    {
+      decorate,
+      decoration =
+        {
+          complete sines,
+          amplitude   = \bondboldwidth,
+          post length = 0 pt,
+          pre length  = 0 pt,
+          % Use the atom spacing: saved 
+          segment length = 
+            \the\dimexpr\csname CF@atom@sep\endcsname/5\relax
+        }
+    }
+}
+%\pgfkeys{/pgf/fpu}
+
+
+
+
+\RequirePackage[version=4,arrows=pgf-filled]{mhchem}
+\RequirePackage{chemfig}
+
+\setlewisdist{.4em}
+
+%\makeatletter
+\def\CF@node@content{%
+  \expandafter\expandafter\expandafter
+    \printatom\expandafter\expandafter\expandafter
+      {\csname atom@\number\CF@cnt@atomnumber\endcsname}%
+    \ensuremath{\CF@node@strut}%
+}
+%\makeatother
+
+\setdoublesep{0.17850 em}  % 'Bond Spacing'
+%\setdoublesep{0.35700 em}  % 'Bond Spacing'
+%\setatomsep{1.78500 em}    % 'Fixed Length'
+\setatomsep{2.2 em}    % 'Fixed Length'
+\setbondoffset{0.18265 em} % 'Margin Width'
+\newcommand{\bondwidth}{0.06642 em} % 'Line Width'
+\setbondstyle{line width = \bondwidth}
+\renewcommand*{\printatom}[1]{{\small \ce{#1}}}
+
+
+% define an arrow type `-y>' that takes 6 optional arguments
+% \arrow{-y>[<label arc start>]%
+%           [<label arc end>]%
+%           [<label below>]%
+%           [<arrow shift>]%
+%           [<ratio arc radius/arrow length>]% default: 0.333
+%           [<half of angle of arc>]% default: 60
+\definearrow{6}{-y>}{%
+    % shift the arrow:
+    \CF@arrow@shift@nodes{#4}%
+    % draw main arrow:
+    \expandafter\draw\expandafter[\CF@arrow@current@style]
+      (\CF@arrow@start@node)--(\CF@arrow@end@node)node[midway](yarrow@arctangent){};%
+    % draw first half of arc if label #1 is given:
+    \edef\CF@tmp@str{\ifx\@empty#1\@empty[draw=none]\fi}%
+    \expandafter\draw\CF@tmp@str (yarrow@arctangent)%
+        arc[
+          radius=\CF@compound@sep*\CF@current@arrow@length*\ifx\@empty#5\@empty0.333\else#5\fi,
+          start angle=\CF@arrow@current@angle-90,
+          delta angle=-\ifx\@empty#6\@empty60\else#6\fi]
+        node(yarrow@start){};
+    % draw second half of arrow if label #2 is given:
+    \edef\CF@tmp@str{[\ifx\@empty#2\@empty draw=none,\fi]}%
+    \expandafter\draw\CF@tmp@str (yarrow@arctangent)%
+        arc[
+          radius=\CF@compound@sep*\CF@current@arrow@length*\ifx\@empty#5\@empty0.333\else#5\fi,
+          start angle=\CF@arrow@current@angle-90,%
+          delta angle=\ifx\@empty#6\@empty60\else#6\fi]
+        node(yarrow@end){};
+    \edef\CF@tmp@str{\if\string-\expandafter\@car\detokenize{#4.}\@nil-\else+\fi}%
+    % place labels #1 and #2:
+    \CF@arrow@display@label{#1}{0}\CF@tmp@str{yarrow@start}{#2}{1}\CF@tmp@str{yarrow@end}%
+    % place label #3:
+    \CF@arrow@display@label{#3}{0.5}-\CF@arrow@start@node{}{}{}\CF@arrow@end@node
+}
+
+% wavy R groups
+\tikzset{wv/.style={decorate,decoration=complete sines}}
+\definesubmol{R}{-[,.5]((-[::90,.5,,,wv])-[::-90,.5,,,wv])}
+
+
+
+
+
+\RequirePackage{lewis}
+\RequirePackage{modiagram}
+\RequirePackage{tikzorbital}
+
+
+
+
+
+
+\def\kB{1.3806488e-23}% boltzmann constant
+\def\temperature{298}% room temperature
+\def\Beta{1/(\kB*\temperature)}
+\def\amu{1.660538921e-27}% atomar mass unit in kg
+\def\mass{1*\amu}
+\def\mB{\mass*\Beta}
+
+
+
+
+
+\RequirePackage{booktabs}
+
+%\setlength\heavyrulewidth{0.08em}
+%\setlength\lightrulewidth{0.05em}
+
+
+
+
+
+
+\declaretheoremstyle[
+  parent=chapter,
+  spaceabove=10pt,
+  spacebelow=20cm,
+  headfont=\bfseries,
+  notefont=\bfseries,
+  notebraces={}{},
+  bodyfont=\normalfont,
+  %postheadspace=1cm,
+  numberwithin=chapter
+]{exstyle}
+
+\declaretheorem[
+  name=\examplestring,
+  mdframed={
+    backgroundcolor=exampleBg!10,
+    linecolor=exampleBg!60,
+    linewidth=0.2mm,
+    skipbelow=8cm,
+    innerbottommargin=3em,
+    innerleftmargin=.3cm,
+    innerrightmargin=.3cm},
+  style=exstyle
+]{example}
+
+\declaretheorem[
+  shaded={
+    textwidth=.97\textwidth,
+    rulecolor=definitionBg!25,
+    rulewidth=0.4mm,
+    bgcolor=definitionBg!15,
+    margin=.3cm},
+  style=exstyle
+]{definition}
+
+\newcommand{\ceeq}[1]{\begin{equation}\ce{#1}\end{equation}}
+\newcommand{\ceeqstar}[1]{\begin{equation*}\ce{#1}\end{equation*}}
+\newcommand{\ceinl}[1]{\ensuremath{\ce{#1}}}
+\newcommand{\cepar}[1]{(\ensuremath{\ce{#1}})}
+
+\newcommand{\reactionref}[1]{Reaktion~\ref{#1}}
+
+\newcommand{\grr}[2]{$#1\text{#2}$}
+
+\newcommand{\custommarginpar}[1]{\marginnote{\footnotesize #1}}
+
+
+%\newcommand{\specialcell}[2][c]{%
+%  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\newcommand{\specialcell}[2][1]{%
+  \parbox[t][][t]{#1\textwidth}{\raggedright#2}}
+
+\newcommand{\cep}[1]{(\ce{#1})}
+
+\RequirePackage{widebar}
+\newcommand*\conj[1]{\widebar{#1}}
+\newcommand*\mean[1]{\widebar{#1}}
+
+\newcommand*{\Perm}[2]{{}^{#1}\!P_{#2}}%
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}%
+
+
+\newcommand*{\paragraphbreak}{\vspace*{1em}}
+
+\RequirePackage{xspace}
+
+%
+% First define the math operator
+%
+\DeclareMathOperator{\mathformalcharge}{FC}
+\DeclareMathOperator{\mathionizationenergy}{IE}
+\DeclareMathOperator{\mathelectronaffinity}{EA}
+\DeclareMathOperator{\mathstericnumber}{SN}
+\DeclareMathOperator{\mathbondorder}{BO}
+
+
+%
+% Then take care of text/math spacing
+%
+\def\formalcharge{\ensuremath{\mathformalcharge}\xspace}
+\def\ionizationenergy{\ensuremath{\mathionizationenergy}\xspace}
+\def\electronaffinity{\ensuremath{\mathelectronaffinity}\xspace}
+\def\stericnumber{\ensuremath{\mathstericnumber}\xspace}
+\newcommand{\bondorder}{\ensuremath{\mathbondorder}\xspace}
+
+\def\Zeff{\ensuremath{Z_{\text{eff}}}\xspace}
+\def\Eea{\ensuremath{E_{ea}}\xspace}
+\def\dissociationenergy{\ensuremath{\Delta E_d}\xspace}
+\def\ded{\dissociationenergy}
+\def\deltaE{\ensuremath{\Delta E}\xspace}
+\def\deltaE{\ensuremath{\Delta E}\xspace}
+\def\enthalpy{\ensuremath{\Delta H}\xspace}
+\def\enthalpyO{\ensuremath{\Delta H^0}\xspace}
+\def\stdbondenthalpy{\ensuremath{\enthalpy^{0}}\xspace}
+\def\gibbs{\ensuremath{\Delta G}\xspace}
+\def\gibbsO{\ensuremath{\Delta G^0}\xspace}
+\def\dS{\ensuremath{\Delta S}}
+\def\dSO{\ensuremath{\Delta S^0}}
+\def\standardgibbsfreeenergyof{\ensuremath{\Delta G_f^0}}
+\def\pKa{\ensuremath{\mathrm{p}K_a}}
+\def\Ka{\ensuremath{K_a}}
+\def\pKb{\ensuremath{\mathrm{p}K_b}}
+\def\Kb{\ensuremath{K_b}}
+\def\pKw{\ensuremath{\mathrm{p}K_w}}
+\def\pH{\ensuremath{\mathrm{pH}}}
+\def\pOH{\ensuremath{\mathrm{pOH}}}
+
+\def\hydronium{\ce{H3O^+}}
+\def\hydroxide{\ce{OH^-}}
+
+\RequirePackage{siunitx}
+\DeclareSIUnit\atmosphere{atm}
+\DeclareSIUnit\atm{atm}
+\DeclareSIUnit\debye{D}
+\DeclareSIUnit\atom{atom}
+\DeclareSIUnit{\pH}{pH}
+\DeclareSIUnit{\pOH}{pOH}
+\DeclareSIUnit{\eV}{eV}
+\DeclareSIUnit{\milliliter}{ml}
+\DeclareSIUnit\molar{M}
+
+\def\kjpm{\si{\kilo\joule\per\mol}}
+
+
+
+
+\RequirePackage{environ}% http://ctan.org/pkg/environ
+\NewEnviron{customtable}[3]{%
+  \begin{table}[t]
+    \centering
+    
+    \fcolorbox{tableBg!40}{tableBg!20!black!10}{
+      \makebox[\textwidth]{
+        \label{#2} % label
+        \begin{tabular}{#3} % colspec
+          \toprule
+          \BODY% regular \BODY of itquote environment
+          \bottomrule
+        \end{tabular}
+      }
+    }
+    \captionof{table}{#1} % caption
+  \end{table}
+}
+
+
+
+
+\NewEnviron{hfigure}{%
+  \begin{figure}[h]
+    \begin{margincap}
+      \BODY
+    \end{margincap}
+  \end{figure}
+}
+
+\NewEnviron{htable}{%
+  \begin{table}[h]
+    \begin{margincap}
+      {\small \BODY}
+    \end{margincap}
+  \end{table}
+}
+
+\NewEnviron{inlinetable}[1]{%
+  {\small
+    \begin{center}
+      \begin{tabular}{#1}
+        \BODY
+      \end{tabular}
+    \end{center}
+  }
+}
+
+
+
+
+\mdfdefinestyle{MyFrame}{%
+    linecolor=black!20,
+    outerlinewidth=.4pt,
+    roundcorner=20pt,
+    innertopmargin=\baselineskip,
+    innerbottommargin=\baselineskip,
+    innerrightmargin=20pt,
+    innerleftmargin=20pt,
+    backgroundcolor=gray!5!white}
+
+
+
+\NewEnviron{remark}{
+  \begin{mdframed}[style=MyFrame]
+    \BODY
+  \end{mdframed}
+}
+
+
+\endinput
