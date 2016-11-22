@@ -57,14 +57,19 @@
 \RequirePackage{translations}
 
 \newcommand*\examplestring{\protect\GetTranslation{mats-textbook-example}}
+\newcommand*\summarystring{\protect\GetTranslation{mats-textbook-summary}}
 
 % translations for `mypackage-title':
 \DeclareTranslationFallback {mats-textbook-example}{Example}
 \DeclareTranslation{English}{mats-textbook-example}{Example}
 \DeclareTranslation{Swedish}{mats-textbook-example}{Exempel}
 
+\DeclareTranslationFallback {mats-textbook-summary}{Summary}
+\DeclareTranslation{English}{mats-textbook-summary}{Summary}
+\DeclareTranslation{Swedish}{mats-textbook-summary}{Sammanfattning}
 
 
+\newcommand*\summary{\addsec{\summarystring}}
 
 
 
@@ -95,6 +100,7 @@
 \renewcommand\labelenumi{(\theenumi)}
 
 
+\RequirePackage{csquotes}
 
 \RequirePackage[
   small,
@@ -288,6 +294,15 @@
 \RequirePackage[version=4,arrows=pgf-filled]{mhchem}
 \RequirePackage{chemfig}
 
+
+% Internal lengths for chemfig
+\newlength{\defaultbondlength}
+\newlength{\longbondlength}
+
+\setlength{\defaultbondlength}{2.2 em}
+\setlength{\longbondlength}{2.6 em}
+% ...
+
 \setlewisdist{.4em}
 
 %\makeatletter
@@ -458,31 +473,46 @@
 \DeclareMathOperator{\mathelectronaffinity}{EA}
 \DeclareMathOperator{\mathstericnumber}{SN}
 \DeclareMathOperator{\mathbondorder}{BO}
+\DeclareMathOperator{\mathcoordinationnumber}{CN}
 
 
 %
 % Then take care of text/math spacing
 %
-\def\formalcharge{\ensuremath{\mathformalcharge}\xspace}
-\def\ionizationenergy{\ensuremath{\mathionizationenergy}\xspace}
-\def\electronaffinity{\ensuremath{\mathelectronaffinity}\xspace}
-\def\stericnumber{\ensuremath{\mathstericnumber}\xspace}
-\newcommand{\bondorder}{\ensuremath{\mathbondorder}\xspace}
+\def\formalcharge{\ensuremath{\mathformalcharge}}
+\def\ionizationenergy{\ensuremath{\mathionizationenergy}}
+\def\electronaffinity{\ensuremath{\mathelectronaffinity}}
+\def\stericnumber{\ensuremath{\mathstericnumber}}
+\newcommand{\bondorder}{\ensuremath{\mathbondorder}}
+\def\coordinationnumber{\ensuremath{\mathcoordinationnumber}}
 
-\def\Zeff{\ensuremath{Z_{\text{eff}}}\xspace}
-\def\Eea{\ensuremath{E_{ea}}\xspace}
+\def\Zeff{\ensuremath{Z_{\text{eff}}}}
+\def\Eea{\ensuremath{E_{\text{ea}}}}
 \def\dissociationenergy{\ensuremath{\Delta E_d}\xspace}
 \def\ded{\dissociationenergy}
-\def\deltaE{\ensuremath{\Delta E}\xspace}
-\def\deltaE{\ensuremath{\Delta E}\xspace}
+
+\def\deltaE{\ensuremath{\Delta E}}
+\def\dE{\deltaE}
+\def\stdDE{\ensuremath{\Delta E^0}}
+
 \def\enthalpy{\ensuremath{\Delta H}\xspace}
 \def\enthalpyO{\ensuremath{\Delta H^0}\xspace}
 \def\stdbondenthalpy{\ensuremath{\enthalpy^{0}}\xspace}
-\def\gibbs{\ensuremath{\Delta G}\xspace}
-\def\gibbsO{\ensuremath{\Delta G^0}\xspace}
+
+\def\gibbs{\ensuremath{\Delta G}}
+\def\gibbsO{\ensuremath{\Delta G^0}}
+\def\gibbscell{\ensuremath{\Delta G_{\text{cell}}}}
+\def\gibbscellO{\ensuremath{\Delta G^0_{\text{cell}}}}
+\def\standardgibbsfreeenergyof{\ensuremath{\Delta G_f^0}}
+
 \def\dS{\ensuremath{\Delta S}}
 \def\dSO{\ensuremath{\Delta S^0}}
-\def\standardgibbsfreeenergyof{\ensuremath{\Delta G_f^0}}
+
+\def\cellpotential{\ensuremath{\Delta E_{\text{cell}}}}
+\def\cellpotentialO{\ensuremath{\Delta E^0_{\text{cell}}}}
+\def\reductionpotential{\ensuremath{E_h}} % \epsilon
+\def\reductionpotentialO{\ensuremath{E_h^0}} % \epsilon
+
 \def\pKa{\ensuremath{\mathrm{p}K_a}}
 \def\Ka{\ensuremath{K_a}}
 \def\pKb{\ensuremath{\mathrm{p}K_b}}
